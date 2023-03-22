@@ -1,9 +1,11 @@
-# Stage 1/5: Meet the markdown!
-print(f"""# John Lennon
-or ***John Winston Ono Lennon*** was one of *The Beatles*.
-Here are the songs he wrote I like the most:
-- Imagine
-- Norwegian Wood
-- Come Together
-- In My Life
-- ~~Hey Jude~~ (that was *McCartney*)""")
+# Stage 2/5: How do I use it?
+formats = ["plain", "bold", "italic", "header", "link", "inline-code", "ordered-list", "unordered-list", "new-line"]
+while True:
+    mode = input("Choose a formatter: ")
+    if mode not in (formats + ["!help", "!done"]):
+        print("Unknown formatting type or command")
+    elif mode == "!help":
+        print("""Available formatters: plain bold italic header link inline-code ordered-list unordered-list new-line
+Special commands: !help !done""")
+    elif mode == "!done":
+        break
