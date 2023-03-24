@@ -1,7 +1,8 @@
-# Stage 3/5: Text formatting
+# Stage 4/5: Ordered and unordered lists
 class MarkDownEditor:
     def __init__(self):
-        self.formats = ["plain", "bold", "italic", "header", "link", "inline-code", "new-line"]
+        self.formats = ["plain", "bold", "italic", "header", "link", "inline-code", "new-line", "ordered-list",
+                        "unordered-list"]
         self.text = ""
 
     def header(self):
@@ -30,18 +31,36 @@ class MarkDownEditor:
     def link(self):
         self.text += f"[{input('Label: ')}]({input('URL: ')})"
 
+    def list(self, mode):
+        while True:
+            no_rows = int(input("Number of rows: "))
+            if no_rows > 0:
+                break
+            print("The number of rows should be greater than zero")
+        rows = [input(f"Row #{i + 1}: ") for i in range(no_rows)]
+        if mode == "ordered-list":
+            for i in range(no_rows):
+                self.text += f"{i + 1}. {rows[i]}\n"
+        else:
+            for i in range(no_rows):
+                self.text += f"*. {rows[i]}\n"
+
     def start(self):
         while True:
             mode = input("Choose a formatter: ")
             if mode not in (self.formats + ["!help", "!done"]):
                 print("Unknown formatting type or command")
             elif mode == "!help":
-                print("""Available formatters: plain bold italic header link inline-code new-line
+                print("""Available formatters: plain bold italic header link inline-code new-line ordered-list \
+unordered-list
 Special commands: !help !done""")
             elif mode == "!done":
                 break
             else:
-                eval("self." + mode.replace("-", "_") + "()")
+                if mode in ["ordered-list", "unordered-list"]:
+                    self.list(mode)
+                else:
+                    eval("self." + mode.replace("-", "_") + "()")
                 print(self.text)
 
 
