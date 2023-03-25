@@ -1,4 +1,4 @@
-# Stage 4/5: Ordered and unordered lists
+# Stage 5/5: Save the results
 class MarkDownEditor:
     def __init__(self):
         self.formats = ["plain", "bold", "italic", "header", "link", "inline-code", "new-line", "ordered-list",
@@ -55,6 +55,9 @@ class MarkDownEditor:
 unordered-list
 Special commands: !help !done""")
             elif mode == "!done":
+                file = open("output.md", "w")
+                file.write(self.text)
+                file.close()
                 break
             else:
                 if mode in ["ordered-list", "unordered-list"]:
@@ -66,3 +69,4 @@ Special commands: !help !done""")
 
 mark_down = MarkDownEditor()
 mark_down.start()
+
